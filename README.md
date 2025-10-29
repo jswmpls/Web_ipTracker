@@ -1,4 +1,5 @@
-# Frontend Mentor - IP address tracker
+# [IP address tracker](https://web-ip-tracker.vercel.app/)
+Проект "IP Address Tracker", выполненный в рамках курса "Фундаментальный JavaScript"
 
 ![Design preview for the IP address tracker coding challenge](preview.jpg)
 
