@@ -1,6 +1,7 @@
+import "babel-polyfill";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { validateIp, addTileLayer } from "./helper";
+import { validateIp, addTileLayer, getAddress, addOffset } from "./helper";
 import icon from "../images/icon-location.svg";
 
 const ipInput = document.querySelector(".search-bar__input");
@@ -30,11 +31,7 @@ addTileLayer(map);
 
 function getData() {
   if (validateIp(ipInput.value)) {
-    fetch(
-      `https://ipgeolocation.abstractapi.com/v1/?api_key=80b926ad363b4150ad2294d760607e9a&ip_address=${ipInput.value}`
-    )
-      .then((response) => response.json())
-      .then(setInfo);
+    getAddress(ipInput.value).then(setInfo);
   }
 }
 
@@ -56,4 +53,12 @@ function setInfo(mapData) {
   L.marker([mapData.latitude, mapData.longitude], { icon: markerIcon }).addTo(
     map
   );
+
+  if (matchMedia("(max-width: 1024px)").matches) {
+    addOffset(map);
+  }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  getAddress("102.22.22.1").then(setInfo);
+});
